@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(TodoApp());
+  runApp(const TodoApp());
 }
 
 class TodoApp extends StatelessWidget {
+  const TodoApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Todo List',
       home: TodoListScreen(),
     );
@@ -15,25 +16,26 @@ class TodoApp extends StatelessWidget {
 }
 
 class TodoListScreen extends StatefulWidget {
+  const TodoListScreen({Key? key}) : super(key: key);
   @override
-  _TodoListScreenState createState() => _TodoListScreenState();
+  TodoListScreenState createState() => TodoListScreenState();
 }
 
-class _TodoListScreenState extends State<TodoListScreen> {
-  TextEditingController _textEditingController = TextEditingController();
-  List<String> _tasks = [];
+class TodoListScreenState extends State<TodoListScreen> {
+  TextEditingController textEditingController = TextEditingController();
+  List<String> tasks = [];
 
   void _addTask(String task) {
     setState(() {
-      _tasks.add(task);
+      tasks.add(task);
     });
-    _textEditingController.clear();
+    textEditingController.clear();
   }
 
-  void _removeTask(int index) {
+  void removeTask(int index) {
     setState(() {
-      _textEditingController.text = _tasks[index];
-      _tasks.removeAt(index);
+      textEditingController.text = tasks[index];
+      tasks.removeAt(index);
     });
   }
 
@@ -41,13 +43,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo List'),
+        title: const Text('Todo List'),
       ),
       body: Column(
         children: <Widget>[
           TextField(
-            controller: _textEditingController,
-            decoration: InputDecoration(
+            controller: textEditingController,
+            decoration: const InputDecoration(
               hintText: 'Enter a task',
               contentPadding: EdgeInsets.all(10.0),
             ),
@@ -59,12 +61,12 @@ class _TodoListScreenState extends State<TodoListScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: _tasks.length,
+              itemCount: tasks.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(_tasks[index]),
+                  title: Text(tasks[index]),
                   onTap: () {
-                    _removeTask(index);
+                    removeTask(index);
                   },
                 );
               },
