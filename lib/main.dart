@@ -59,6 +59,14 @@ class TodoListScreenState extends State<TodoListScreen> {
               }
             },
           ),
+          ElevatedButton(
+            onPressed: () {
+              if (textEditingController.text.isNotEmpty) {
+                _addTask(textEditingController.text);
+              }
+            },
+            child: Text('Add Todo'),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: tasks.length,
